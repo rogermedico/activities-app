@@ -1,8 +1,8 @@
 <div class="login-container" *ngIf="(authState$ | async).loaded; else loading">
-  <mat-card class="mat-elevation-z4">
-    <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
-    </mat-card-header>
+  <mat-card class=" mat-elevation-z4">
+    <!-- <mat-card-header> -->
+    <mat-card-title>{{title}}</mat-card-title>
+    <!-- </mat-card-header> -->
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-card-content>
         <section>

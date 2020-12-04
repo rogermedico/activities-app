@@ -1,7 +1,99 @@
-<div class="page-wrapper">
+<!-- <div class="page-wrapper">
   <app-header></app-header>
   <main>
     <router-outlet></router-outlet>
   </main>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> -->
+
+<mat-toolbar #toolbar color="primary" class="fixed mat-elevation-z8">
+  <div fxHide.gt-sm *ngIf="(userLoggedIn$ | async)">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="toolbar__brand">
+    <a class="toolbar__link" routerLink="/home" (click)="sidenav.close()">
+      <button mat-button class="toolbar__brand__text">
+        {{title}}
+      </button>
+    </a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end">
+    <ul fxLayout fxLayoutGap="5px" class="navigation-items">
+      <li *ngIf="!(userLoggedIn$ | async)">
+        <a class="toolbar__link" routerLink="/auth/login" routerLinkActive="active">
+          <button mat-button>Login</button>
+        </a>
+      </li>
+      <li *ngIf="!(userLoggedIn$ | async)">
+        <a class="toolbar__link" routerLink="/auth/register" routerLinkActive="active">
+          <button mat-button>Register</button>
+        </a>
+      </li>
+      <li fxHide fxShow.gt-sm *ngIf="(userLoggedIn$ | async)">
+        <a class="toolbar__link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <button mat-button>Home</button>
+        </a>
+      </li>
+      <li fxHide fxShow.gt-sm *ngIf="(userLoggedIn$ | async) && (userLoggedIn$ | async).type == userTypes.company">
+        <a class="toolbar__link" routerLink="/activities/admin" routerLinkActive="active">
+          <button mat-button>Admin</button>
+        </a>
+      </li>
+      <li fxHide fxShow.gt-sm *ngIf="(userLoggedIn$ | async) && (userLoggedIn$ | async).type == userTypes.tourist">
+        <a class="toolbar__link" routerLink="/favorites" routerLinkActive="active">
+          <button mat-button>Favorites</button>
+        </a>
+      </li>
+      <li fxHide fxShow.gt-sm *ngIf="(userLoggedIn$ | async) && (userLoggedIn$ | async).type == userTypes.tourist">
+        <a class="toolbar__link" routerLink="/myactivities" routerLinkActive="active">
+          <button mat-button>My activities</button>
+        </a>
+      </li>
+      <li fxHide fxShow.gt-sm *ngIf="(userLoggedIn$ | async)">
+        <a class="toolbar__link" routerLink="/user/profile" routerLinkActive="active">
+          <button mat-button>Profile</button>
+        </a>
+      </li>
+      <li *ngIf="(userLoggedIn$ | async)">
+        <a class="toolbar__link" routerLink="/auth/logout" routerLinkActive="active">
+          <button mat-button (click)="sidenav.close()">Logout</button>
+        </a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation" fixedInViewport="true" opened="false" mode="over" disableClose="false"
+    [style.marginTop.px]="sidenavMarginTop">
+    <mat-nav-list>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async)" routerLink="/" routerLinkActive="active-sidenav-item"
+        [routerLinkActiveOptions]="{ exact: true }" (click)="sidenav.close()">
+        <span class="nav-caption">Home</span>
+      </a>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async) && (userLoggedIn$ | async).type == userTypes.company"
+        routerLink="/activities/admin" routerLinkActive="active-sidenav-item" (click)="sidenav.close()">
+        <span class="nav-caption">Admin</span>
+      </a>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async) && (userLoggedIn$ | async).type == userTypes.tourist"
+        routerLink="/favorites" routerLinkActive="active-sidenav-item" (click)="sidenav.close()">
+        <span class="nav-caption">Favorites</span>
+      </a>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async) && (userLoggedIn$ | async).type == userTypes.tourist"
+        routerLink="/myactivities" routerLinkActive="active-sidenav-item" (click)="sidenav.close()">
+        <span class="nav-caption">My activities</span>
+      </a>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async)" routerLink="/user/profile" routerLinkActive="active-sidenav-item"
+        (click)="sidenav.close()">
+        <span class="nav-caption">Profile</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content" [style.marginTop.px]="sidenavMarginTop">
+    <main class="router-outlet-container">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
