@@ -28,6 +28,10 @@ import { FooterComponent } from '@views/footer/footer.component';
 import { ActivitiesModule } from './modules/activities/activities.module';
 import { environment } from 'environments/environment';
 
+/* material */
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '@modules/material/material.module';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +46,8 @@ import { environment } from 'environments/environment';
     ReactiveFormsModule,
     ActivitiesModule,
     HttpClientModule,
+
+    /* in memory data service */
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
@@ -58,6 +64,8 @@ import { environment } from 'environments/environment';
       maxAge: 25,
       logOnly: environment.production
     }),
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
