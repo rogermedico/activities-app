@@ -1,0 +1,38 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="form-group">
+    <form [formGroup]="languageForm" (ngSubmit)="handleLanguageForm()">
+      <div class="input-container">
+        <select class="name-input" formControlName="name">
+          <option value="" [selected]="language?.name == null">Select language name</option>
+          <option *ngFor="let name of languageNames" [selected]="language?.name == name">
+            {{name}}
+          </option>
+        </select>
+        <div class="error" *ngIf="name.invalid && name.dirty">
+          Name of language is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <select class="level-input" formControlName="level">
+          <option value="" [selected]="language?.level == ''">Select language level</option>
+          <option *ngFor="let langLevel of languageLevels" [selected]="language?.level == langLevel">
+            {{langLevel}}
+          </option>
+        </select>
+        <div class="error" *ngIf="level.invalid && level.dirty">
+          Level achieved is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="finish-date-input" type="text" placeholder="Finish date" name="finishDate"
+          formControlName="finishDate">
+        <div class="error" *ngIf="finishDate.dirty && finishDate.invalid">
+          Finish date has to be in DD/MM/YYYY format
+        </div>
+      </div>
+      <button class="submit-button" type="submit"
+        [disabled]="!languageForm.valid">{{languageIndex != null?'Update language':'Create language'}}</button>
+    </form>
+  </div>
+</div>

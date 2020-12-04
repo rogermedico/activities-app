@@ -1,0 +1,29 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="form-group">
+    <form (ngSubmit)="login()" [formGroup]="loginForm">
+      <div class="username">
+        <input class="username-input" type="email" placeholder="Username" name="username" formControlName="username">
+        <div class="error" *ngIf="username.dirty && username.invalid">
+          Username is Mandatory
+        </div>
+        <div class="error" *ngIf="username.dirty && username.invalid && username.value !==''">
+          Username has to be an email
+        </div>
+      </div>
+      <div class="password">
+        <input class="password-input" type="password" placeholder="Password" name="password" formControlName="password"
+          autocomplete="on">
+        <div class="error" *ngIf="(loginForm.get('password').dirty ) && loginForm.get('password').invalid">
+          Password is Mandatory
+        </div>
+      </div>
+      <div>
+        <div class="error-form" *ngIf="(authState$ | async).wrongCredentials">
+          Wrong user or password, try again
+        </div>
+        <button class="login-button" type="submit" [disabled]="!loginForm.valid">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="education-content">
+    <div class="education-header education-row" *ngIf="(educations$ | async).length != 0">
+      <span class="education-header-item">TYPE</span>
+      <span class="education-header-item">LEVEL</span>
+      <span class="education-header-item">NAME</span>
+      <span class="education-header-item">UNIVERSITY</span>
+      <span class="education-header-item">FINISH DATE</span>
+      <span class="education-header-item">ACTIONS</span>
+
+    </div>
+    <div class="education-row" *ngIf="(educations$ | async).length == 0">
+      No Education to show at the moment...
+    </div>
+    <div class="education-row" *ngFor="let education of (educations$ | async);let i=index">
+      <span class="education-item">{{education.type}}</span>
+      <span class="education-item">{{education.level}}</span>
+      <span class="education-item">{{education.name}}</span>
+      <span class="education-item">{{education.university}}</span>
+      <span class="education-item">{{education.finishDate}}</span>
+      <span class="education-item">
+        <a class="update-education-link" [routerLink]="" (click)="updateEducation(i)">
+          <span class="material-icons edit">
+            edit
+          </span>
+        </a>
+        <a class="delete-education-link" [routerLink]="" (click)="deleteEducation(education)">
+          <span class="material-icons delete">
+            delete
+          </span>
+        </a>
+      </span>
+    </div>
+
+
+  </div>
+  <div class="education-new-button-container">
+    <button class="education-new-button" type="submit" (click)="createEducation()">
+      New Education
+    </button>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.home-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.home-item {
+    width: 50%;
+}
+
+.activities-list {
+    padding-right: 10px;
+}
+
+.activity-details {
+    padding-left: 10px;
+}

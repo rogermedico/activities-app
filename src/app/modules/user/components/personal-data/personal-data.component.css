@@ -1,0 +1,72 @@
+.section-title {
+    font-size: 1.1rem;
+    text-align: left;
+    border-bottom: 1px solid darkgray;
+}
+
+.name,
+.surname,
+.birth-date,
+.phone,
+.nationality,
+.nif,
+.about-me,
+.company-name,
+.company-description,
+.cif {
+    margin: 15px;
+    position:relative;
+}
+
+.name-input,
+.surname-input,
+.birth-date-input,
+.phone-input,
+.nationality-input,
+.nif-input,
+.about-me-input,
+.company-name-input,
+.company-description-input,
+.cif-input {
+    margin:0;
+    padding: 10px;
+    width: 350px;
+}
+
+.about-me-input {
+    height: 75px;
+}
+
+.update-profile-button {
+    padding: 10px;
+    width: 210px;
+    margin-bottom: 50px;
+}
+
+.error {
+    color: #a94442;
+    background-color: #f2dede;
+    padding: 10px;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    /* width: 35vw; */
+    /* margin-top: 5px; */
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 0.8rem;
+    position: absolute;
+    top:0;
+    left: 62vw;
+}
+
+.success-alert {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin: 15px auto;
+    font-size: 0.8rem;
+    padding: 10px;
+    width: 25vw;
+}

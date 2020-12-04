@@ -1,0 +1,31 @@
+<div>
+    <h2 class="section-title">{{title}}</h2>
+    <div class="activity-content" *ngIf="activities">
+        <div class="activity-header activity-row" *ngIf="activities.length != 0">
+            <span class="activity-header-item">NAME</span>
+            <span class="activity-header-item">CATEGORY</span>
+            <span class="activity-header-item">LANGUAGE</span>
+            <span class="activity-header-item">DATE</span>
+            <span class="activity-header-item">PRICE</span>
+            <span class="activity-header-item">ACTIONS</span>
+
+        </div>
+        <div class="activity-row" *ngIf="activities.length == 0">
+            No activities to show at the moment...
+        </div>
+        <div class="activity-row" *ngFor="let ac of activities;let i=index">
+            <span class="activity-item">{{ac.name}}</span>
+            <span class="activity-item">{{ac.category}}</span>
+            <span class="activity-item">{{ac.language}}</span>
+            <span class="activity-item">{{ac.date}}</span>
+            <span class="activity-item">{{ac.price}}</span>
+            <span class="activity-item">
+                <a class="show-details-link" [routerLink]="" (click)="showDetails(ac)">
+                    <span class="material-icons md-36 details">
+                        description
+                    </span>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>

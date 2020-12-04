@@ -1,0 +1,40 @@
+.section-title {
+    font-size: 1.1rem;
+}
+
+.input-container {
+    margin: 15px;
+    position:relative;
+}
+
+.type-input,
+.level-input,
+.name-input,
+.university-input,
+.finish-date-input {
+    margin:0;
+    padding: 10px;
+    width: 350px;
+}
+
+.submit-button {
+    padding: 10px;
+    width: 210px;
+    margin-bottom: 50px;
+}
+
+.error {
+    color: #a94442;
+    background-color: #f2dede;
+    padding: 10px;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    /* width: 35vw; */
+    /* margin-top: 5px; */
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 0.8rem;
+    position: absolute;
+    top:0;
+    left: 62vw;
+}

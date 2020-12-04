@@ -1,0 +1,11 @@
+.page-wrapper {
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -30px; 
+}
+
+main {
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    margin:20px 50px;
+}

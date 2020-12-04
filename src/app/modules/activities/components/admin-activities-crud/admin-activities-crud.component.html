@@ -1,0 +1,106 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="form-group">
+    <form [formGroup]="activityForm" (ngSubmit)="handleActivityForm()">
+      <div class="input-container">
+        <input class="input" type="text" placeholder="Name" name="name" formControlName="name">
+        <div class="error" *ngIf="name.invalid && name.dirty && name.value ===''">
+          Username is Mandatory
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length<3 && name.value.length>0">
+          Username has to be greater than 2 characters
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length>55">
+          Username has to be lesser than 56 characters
+        </div>
+      </div>
+      <div class="input-container">
+        <select class="input" formControlName="category">
+          <option value="" [selected]="activity?.category == null">Select category</option>
+          <option *ngFor="let cat of categoryTypes" [selected]="activity?.category == cat">
+            {{cat}}
+          </option>
+        </select>
+        <div class="error" *ngIf="category.invalid && category.dirty">
+          Category is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <select class="input" formControlName="subcategory">
+          <option value="" [selected]="activity?.subcategory == ''">Select subcategory</option>
+          <ng-container *ngIf="category.value === 'Cultura i patrimoni'">
+            <option *ngFor="let culture of subcategoryCulture" [selected]="activity?.subcategory == culture">
+              {{culture}}
+            </option>
+          </ng-container>
+          <ng-container *ngIf="category.value === 'Enoturisme'">
+            <option *ngFor="let eno of subcategoryEnoturisme" [selected]="activity?.subcategory == eno">
+              {{eno}}
+            </option>
+          </ng-container>
+          <ng-container *ngIf="category.value === 'Platges'">
+            <option *ngFor="let beach of subcategoryBeach" [selected]="activity?.subcategory == beach">
+              {{beach}}
+            </option>
+          </ng-container>
+        </select>
+        <div class="error" *ngIf="subcategory.invalid && subcategory.dirty">
+          Subcategory is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <textarea class="input textarea-class" name="description" formControlName="description"></textarea>
+      </div>
+      <div class="input-container">
+        <select class="input" formControlName="language">
+          <option value="" [selected]="activity?.language == null">Select language</option>
+          <option *ngFor="let lang of languages" [selected]="activity?.language == lang">
+            {{lang}}
+          </option>
+        </select>
+        <div class="error" *ngIf="language.invalid && language.dirty">
+          Language is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="input" type="text" placeholder="Date" name="date" formControlName="date">
+        <div class="error" *ngIf="date.dirty && date.invalid">
+          Finish date has to be in DD/MM/YYYY format
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="input" type="text" placeholder="Price" name="price" formControlName="price">
+        <div class="error" *ngIf="price.dirty && price.invalid">
+          Price has to be numeric and greater than 0
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="input" type="text" placeholder="Minium capacity" name="miniumCapacity"
+          formControlName="miniumCapacity">
+        <div class="error" *ngIf="miniumCapacity.dirty && miniumCapacity.invalid">
+          Minium capacity has to be numeric and greater than 0
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="input" type="text" placeholder="Maxum capacity" name="maxCapacity" formControlName="maxCapacity">
+        <div class="error" *ngIf="maxCapacity.dirty && maxCapacity.invalid">
+          Maxum capacity has to be numeric and greater than 0
+        </div>
+        <div class="error" *ngIf="activityForm.errors?.maxCapacityValidationResult">
+          Max capacity has to be equal or greater than minium capacity
+        </div>
+      </div>
+      <div class="input-container">
+        <select class="input" formControlName="state">
+          <option value="" [selected]="activity?.state == null">Select status</option>
+          <option value="Available" [selected]="activity?.state == ACTIVITY_STATUS.available">Available</option>
+          <option value="Cancelled" [selected]="activity?.state == ACTIVITY_STATUS.cancelled">Cancelled</option>
+        </select>
+        <div class="error" *ngIf="state.invalid && state.dirty">
+          Status is mandatory
+        </div>
+      </div>
+      <button class="submit-button" type="submit" [disabled]="!activityForm.valid">{{buttonTag}}</button>
+    </form>
+  </div>
+</div>

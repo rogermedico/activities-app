@@ -1,0 +1,71 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="form-group">
+    <form [formGroup]="educationForm" (ngSubmit)="handleEducationForm()">
+      <div class="input-container">
+        <select class="type-input" formControlName="type">
+          <option value="" [selected]="education?.type == null">Select education type</option>
+          <option *ngFor="let educationtype of educationTypes" [selected]="education?.type == educationtype">
+            {{educationtype}}
+          </option>
+        </select>
+        <div class="error" *ngIf="type.invalid && type.dirty">
+          Type of education is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <select class="level-input" formControlName="level">
+          <option value="" [selected]="education?.level == ''">Select education level</option>
+          <ng-container *ngIf="type.value === 'Títol universitari'">
+            <option *ngFor="let universityLevel of universityLevels" [selected]="education?.level == universityLevel">
+              {{universityLevel}}
+            </option>
+          </ng-container>
+          <ng-container *ngIf="type.value === 'Cicle formatiu'">
+            <option *ngFor="let cicleLevel of cicleLevels" [selected]="education?.level == cicleLevel">
+              {{cicleLevel}}
+            </option>
+          </ng-container>
+        </select>
+        <div class="error" *ngIf="level.invalid && level.dirty">
+          Level acomplished is mandatory
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="name-input" type="text" placeholder="Name" name="name" formControlName="name">
+        <div class="error" *ngIf="name.invalid && name.dirty && name.value ===''">
+          Username is Mandatory
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length<3 && name.value.length>0">
+          Username has to be greater than 2 characters
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length>55">
+          Username has to be lesser than 56 characters
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="university-input" type="text" placeholder="Univserity" name="university"
+          formControlName="university">
+        <div class="error" *ngIf="university.invalid && university.dirty && university.value ===''">
+          University name is Mandatory
+        </div>
+        <div class="error"
+          *ngIf="university.dirty && university.invalid && university.value.length<3 && university.value.length>0">
+          Univserity name has to be greater than 2 characters
+        </div>
+        <div class="error" *ngIf="university.dirty && university.invalid && university.value.length>55">
+          Univserity name has to be lesser than 56 characters
+        </div>
+      </div>
+      <div class="input-container">
+        <input class="finish-date-input" type="text" placeholder="Finish date" name="finishDate"
+          formControlName="finishDate">
+        <div class="error" *ngIf="finishDate.dirty && finishDate.invalid">
+          Finish date has to be in DD/MM/YYYY format
+        </div>
+      </div>
+      <button class="submit-button" type="submit"
+        [disabled]="!educationForm.valid">{{educationIndex != null?'Update education':'Create education'}}</button>
+    </form>
+  </div>
+</div>

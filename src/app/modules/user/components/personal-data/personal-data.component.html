@@ -1,0 +1,95 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="form-group">
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <div class="name">
+        <input class="name-input" type="text" placeholder="Name" name="name" formControlName="name">
+        <div class="error" *ngIf="name.invalid && name.dirty && name.value ===''">
+          Username is Mandatory
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length<3 && name.value.length>0">
+          Username has to be greater than 2 characters
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length>55">
+          Username has to be lesser than 56 characters
+        </div>
+        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length>=3 && name.value.length<=55">
+          Username has to be alphabetic without begining nor ending spaces
+        </div>
+      </div>
+      <div class="surname">
+        <input class="surname-input" type="text" placeholder="Surname" name="surname" formControlName="surname">
+        <div class="error" *ngIf="surname.dirty && surname.invalid && surname.value.length<3 && surname.value.length>0">
+          Surname has to be greater than 2 characters
+        </div>
+        <div class="error" *ngIf="surname.dirty && surname.invalid && surname.value.length>55">
+          Surname has to be lesser than 56 characters
+        </div>
+        <div class="error"
+          *ngIf="surname.dirty && surname.invalid && surname.value.length>=3 && surname.value.length<=55">
+          Surname has to be alphabetic without begining nor ending spaces
+        </div>
+      </div>
+      <div class="birth-date">
+        <input class="birth-date-input" type="text" placeholder="Birth date" name="birthDate"
+          formControlName="birthDate">
+        <div class="error" *ngIf="birthDate.dirty && birthDate.invalid">
+          Birth date has to be in DD/MM/YYYY format
+        </div>
+      </div>
+      <div class="phone">
+        <input class="phone-input" type="text" placeholder="Phone number" name="phone" formControlName="phone">
+        <div class="error" *ngIf="phone.dirty && phone.invalid">
+          Phone has to be numeric
+        </div>
+      </div>
+      <div class="nationality">
+        <select class="nationality-input" formControlName="nationality">
+          <option value="" [selected]="(userLoggedIn$ | async ).nationality == null">Select your nationality</option>
+          <option *ngFor="let nat of nationalities" [selected]="(userLoggedIn$ | async ).nationality == nat">
+            {{nat}}
+          </option>
+        </select>
+      </div>
+      <div class="nif">
+        <input class="nif-input" type="text" placeholder="NIF" name="nif" formControlName="nif">
+        <div class="error" *ngIf="profileForm.errors?.nifValidationResult">
+          If nationality is set to ES, NIF field has to be in the following format 00000000A
+        </div>
+      </div>
+      <div class="about-me">
+        <textarea class="about-me-input" name="aboutMe" formControlName="aboutMe"></textarea>
+      </div>
+      <div class="company-name" *ngIf="(userLoggedIn$ | async ).type === userTypes.company">
+        <input class="company-name-input" type="text" placeholder="Comapny name" name="companyName"
+          formControlName="companyName">
+        <div class="error"
+          *ngIf="companyName.dirty && companyName.invalid && companyName.value.length<3 && companyName.value.length>0">
+          Company name has to be greater than 2 characters
+        </div>
+        <div class="error" *ngIf="companyName.dirty && companyName.invalid && companyName.value.length>255">
+          Comapny name has to be lesser than 256 characters
+        </div>
+        <div class="error"
+          *ngIf="companyName.dirty && companyName.invalid && companyName.value.length>=3 && companyName.value.length<=255">
+          Company name has to be alphabetic without begining nor ending spaces
+        </div>
+      </div>
+      <div class="company-description" *ngIf="(userLoggedIn$ | async ).type === userTypes.company">
+        <input class="company-description-input" type="text" placeholder="Company description" name="companyDescription"
+          formControlName="companyDescription">
+      </div>
+      <div class="cif" *ngIf="(userLoggedIn$ | async ).type === userTypes.company">
+        <input class="cif-input" type="text" placeholder="CIF" name="cif" formControlName="cif">
+      </div>
+      <div>
+        <div class="success-alert" *ngIf="profileSaved">
+          Profile successfully updated
+        </div>
+        <button class="update-profile-button" type="submit" [disabled]="!profileForm.valid">
+          Update Profile
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

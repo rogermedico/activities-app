@@ -1,0 +1,53 @@
+@import '~material-design-icons/iconfont/material-icons.css';
+
+.section-title {
+    font-size: 1.1rem;
+    text-align: left;
+    border-bottom: 1px solid darkgray;
+}
+
+.activity-content {
+    margin: 15px;
+}
+
+.activity-row,
+.activity-header{
+    margin: 15px 0;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.activity-header {
+    border-bottom: 1px solid darkgray;
+}
+
+.activity-item,
+.activity-header-item {
+    display:table-cell;
+    padding: 5px 0;
+}
+
+.activity-item {
+    text-align: left;
+    padding-left: 15px;
+    font-size: 0.9rem;
+    vertical-align:middle;
+}
+
+.activity-item:last-child {
+    text-align: center;
+    padding-left: 0;
+}
+
+.details {
+    color: rgb(0,0,0);
+}
+
+.details:hover {
+    color: rgba(2, 15, 20, 0.5);
+}
+
+.show-details-link {
+    text-decoration: none;
+}

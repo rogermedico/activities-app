@@ -1,0 +1,39 @@
+<div>
+  <h2 class="section-title">{{title}}</h2>
+  <div class="language-content">
+    <div class="language-header language-row" *ngIf="(languages$ | async).length != 0">
+      <span class="language-header-item">LANGUAGE</span>
+      <span class="language-header-item">LEVEL</span>
+      <span class="language-header-item">FINISH DATE</span>
+      <span class="language-header-item">ACTIONS</span>
+
+    </div>
+    <div class="language-row" *ngIf="(languages$ | async).length == 0">
+      No languages to show at the moment...
+    </div>
+    <div class="language-row" *ngFor="let language of (languages$ | async);let i=index">
+      <span class="language-item">{{language.name}}</span>
+      <span class="language-item">{{language.level}}</span>
+      <span class="language-item">{{language.finishDate}}</span>
+      <span class="language-item">
+        <a class="update-language-link" [routerLink]="" (click)="updateLanguage(i)">
+          <span class="material-icons edit">
+            edit
+          </span>
+        </a>
+        <a class="delete-language-link" [routerLink]="" (click)="deleteLanguage(language)">
+          <span class="material-icons delete">
+            delete
+          </span>
+        </a>
+      </span>
+    </div>
+
+
+  </div>
+  <div class="language-new-button-container">
+    <button class="language-new-button" type="submit" (click)="createLanguage()">
+      New Language
+    </button>
+  </div>
+</div>
