@@ -26,6 +26,8 @@ import { FooterComponent } from '@views/footer/footer.component';
 
 /* modules */
 import { ActivitiesModule } from './modules/activities/activities.module';
+
+/* environment */
 import { environment } from 'environments/environment';
 
 /* material */
@@ -47,16 +49,14 @@ import { MaterialModule } from '@modules/material/material.module';
     ActivitiesModule,
     HttpClientModule,
 
-    /* in memory data service */
+    /* in memory web api */
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
 
-
+    /* ngrx */
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-
-    /* router in state */
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer
     }),
@@ -64,8 +64,10 @@ import { MaterialModule } from '@modules/material/material.module';
       maxAge: 25,
       logOnly: environment.production
     }),
+
+    /* material */
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
