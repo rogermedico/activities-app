@@ -7,6 +7,7 @@ const defaultAuthState: AuthState = {
   loginInfo: null,
   wrongCredentials: null,
   loading: false,
+  loaded: true,
   error: null
 };
 
@@ -17,6 +18,7 @@ const _authReducer = createReducer(defaultAuthState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -28,6 +30,7 @@ const _authReducer = createReducer(defaultAuthState,
       loginInfo: loginInfo,
       wrongCredentials: false,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -39,6 +42,7 @@ const _authReducer = createReducer(defaultAuthState,
       loginInfo: null,
       wrongCredentials: true,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -48,6 +52,7 @@ const _authReducer = createReducer(defaultAuthState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -59,6 +64,7 @@ const _authReducer = createReducer(defaultAuthState,
       loginInfo: null,
       wrongCredentials: null,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -68,6 +74,7 @@ const _authReducer = createReducer(defaultAuthState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -77,6 +84,7 @@ const _authReducer = createReducer(defaultAuthState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -91,6 +99,7 @@ const _authReducer = createReducer(defaultAuthState,
       },
       wrongCredentials: false,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -102,6 +111,7 @@ const _authReducer = createReducer(defaultAuthState,
       loginInfo: null,
       wrongCredentials: true,
       loading: false,
+      loaded: true,
       error: err
     }
   }),

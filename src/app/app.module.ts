@@ -34,6 +34,8 @@ import { environment } from 'environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@modules/material/material.module';
 
+/* flex layout */
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,7 @@ import { MaterialModule } from '@modules/material/material.module';
 
     /* in memory web api */
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, { dataEncapsulation: false, delay: 2000 }
     ),
 
     /* ngrx */
@@ -68,6 +70,9 @@ import { MaterialModule } from '@modules/material/material.module';
     /* material */
     BrowserAnimationsModule,
     MaterialModule,
+
+    /* flex layout */
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
