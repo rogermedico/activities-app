@@ -1,16 +1,13 @@
-/* .page-wrapper {
-    min-height: 100%; */
-    /* equal to footer height */
-    /* margin-bottom: -30px; 
+mat-sidenav-container {
+  height: calc(100%-64px);
+
+  @media(max-width: 599px) {
+    height: calc(100%-56px);
+  }
+
 }
 
-main {
-    text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
-    margin:20px 50px;
-} */
-
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+mat-sidenav-content, mat-sidenav {
   height: 100%;
 }
 

@@ -1,3 +1,5 @@
+@import '../../../../../themes/responsive.theme.scss';
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -12,6 +14,15 @@
 
 .mat-card {
   padding: 16px 32px;
+  width: 80%;
+
+  @include screen('md'){
+    width: 50%;
+  }
+
+  @include screen('xl'){
+    width: 33%;
+  }
 }
 
 .mat-card-title {
@@ -30,4 +41,5 @@
 
 .mat-form-field {
   margin-bottom: 10px;
+  width: 100%;
 }

@@ -10,6 +10,8 @@ import * as AuthSelectors from '@store/auth/auth.selector';
 import { Observable, Subscription } from 'rxjs';
 import { AuthState } from '@store/auth/auth.state';
 import { map, skipWhile } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { passwordsValidator } from '@validators/passwords.validator';
 
 @Component({
   selector: "app-register",
@@ -24,7 +26,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public authState$: Observable<AuthState> = this.store$.select(AuthSelectors.selectAuthState);
   private authStateSubscription: Subscription;
 
-  constructor(private store$: Store<AppStore>, private fb: FormBuilder, private router: Router) { }
+  constructor(private store$: Store<AppStore>, private fb: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -32,6 +34,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       skipWhile(as => as.loading === true),
       map(as => {
         if (as.wrongCredentials == false && !as.loading) this.router.navigate(['']);
+        if (as.wrongCredentials && !as.loading) this.openSnackBar();
       })
     ).subscribe();
   }
@@ -48,7 +51,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: [null, [Validators.required, Validators.minLength(8)]],
       repeatPassword: [null, [Validators.required, Validators.minLength(8)]],
-    });
+    },
+      {
+        validators: passwordsValidator
+      }
+    );
   }
 
   register() {
@@ -67,6 +74,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.store$.dispatch(AuthActions.AuthRegister({ user: newUser }));
     // this.router.navigate(['']);
 
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Email already in use, try again', 'OK', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+    this.resetForm(this.registerForm);
+  }
+
+  resetForm(form: FormGroup) {
+    form.reset();
+    Object.keys(form.controls).forEach(key => {
+      form.get(key).setErrors(null);
+    });
   }
 
   get name() { return this.registerForm.get('name'); }

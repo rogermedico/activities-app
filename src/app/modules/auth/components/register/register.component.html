@@ -1,89 +1,109 @@
-<div>
-  <h2 class="section-title">{{title}}</h2>
-  <div class="form-group">
+<div class="register-container" *ngIf="(authState$ | async).loaded; else loading">
+  <mat-card class=" mat-elevation-z4">
+    <mat-card-title>{{title}}</mat-card-title>
     <form (ngSubmit)="register()" [formGroup]="registerForm">
-      <div class="name">
-        <input class="name-input" type="text" placeholder="Name" name="name" formControlName="name">
-        <div class="error" *ngIf="name.invalid && name.dirty && name.value ===''">
-          Username is Mandatory
-        </div>
-        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length<3 && name.value.length>0">
-          Username has to be greater than 2 characters
-        </div>
-        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length>55">
-          Username has to be lesser than 56 characters
-        </div>
-        <div class="error" *ngIf="name.dirty && name.invalid && name.value.length>=3 && name.value.length<=55">
-          Username has to be alphabetic without begining nor ending spaces
-        </div>
-      </div>
-      <div class="surname">
-        <input class="surname-input" type="text" placeholder="Surname" name="surname" formControlName="surname">
-        <div class="error" *ngIf="surname.dirty && surname.invalid && surname.value.length<3 && surname.value.length>0">
-          Surname has to be greater than 2 characters
-        </div>
-        <div class="error" *ngIf="surname.dirty && surname.invalid && surname.value.length>55">
-          Surname has to be lesser than 56 characters
-        </div>
-        <div class="error"
-          *ngIf="surname.dirty && surname.invalid && surname.value.length>=3 && surname.value.length<=55">
-          Surname has to be alphabetic without begining nor ending spaces
-        </div>
-      </div>
-      <div class="type">
-        <select class="type-input" formControlName="type">
-          <option value="" selected>Select type of account</option>
-          <option *ngFor="let userType of userTypes">
-            {{userType}}
-          </option>
-        </select>
-      </div>
-      <div class="email">
-        <input class="email-input" type="email" placeholder="Email" name="email" formControlName="email"
-          autocomplete="username">
-        <div class="error" *ngIf="email.invalid && email.dirty && email.value ===''">
-          Email is Mandatory
-        </div>
-        <div class="error" *ngIf="email.dirty && email.invalid && email.value !=='' && !email.errors?.alreadyUsed">
-          Email has to be correct
-        </div>
-        <div class="error" *ngIf="email.invalid && email.errors?.alreadyUsed">
-          Email alredy used, choose another one
-        </div>
-      </div>
-      <div class="password">
-        <input class="password-input" type="password" placeholder="Password" name="password" formControlName="password"
-          autocomplete="new-password">
-        <div class="error" *ngIf="password.invalid && password.dirty && password.value ===''">
-          Password is Mandatory
-        </div>
-        <div class="error"
-          *ngIf="password.dirty && password.invalid && password.value.length<8 && password.value.length>0">
-          Password has to be greater than 7 characters
-        </div>
-      </div>
-      <div class="repeat-password">
-        <input class="repeat-password-input" type="password" placeholder="Repeat Password" name="repeatPassword"
-          formControlName="repeatPassword" autocomplete="new-password">
-        <div class="error" *ngIf="repeatPassword.invalid && repeatPassword.dirty && repeatPassword.value ===''">
-          Repeated password is Mandatory
-        </div>
-        <div class="error"
-          *ngIf="repeatPassword.dirty && repeatPassword.invalid && repeatPassword.value.length<8 && repeatPassword.value.length>0">
-          Repeated password has to be greater than 7 characters
-        </div>
-        <div class="error"
-          *ngIf="repeatPassword.dirty && repeatPassword.valid && repeatPassword.value !== password.value ">
-          Passwords didn't match
-        </div>
-      </div>
-      <div>
-        <div class="error-form" *ngIf="(authState$ | async).wrongCredentials">
-          This email is already in use, choose another one
-        </div>
-        <button class="register-button" type="submit"
+      <mat-card-content>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="username">Enter your name:</mat-label>
+            <input matInput type="text" placeholder="Name" name="name" formControlName="name">
+            <mat-error *ngIf="name.invalid && name.dirty && name.value ===''">
+              Username is Mandatory
+            </mat-error>
+            <mat-error *ngIf="name.dirty && name.invalid && name.value.length<3 && name.value.length>0">
+              Username has to be greater than 2 characters
+            </mat-error>
+            <mat-error *ngIf="name.dirty && name.invalid && name.value.length>55">
+              Username has to be lesser than 56 characters
+            </mat-error>
+            <mat-error *ngIf="name.dirty && name.invalid && name.value.length>=3 && name.value.length<=55">
+              Username has to be alphabetic without begining nor ending spaces
+            </mat-error>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="surname">Enter your surname:</mat-label>
+            <input matInput type="text" placeholder="Surname" name="surname" formControlName="surname">
+            <mat-error *ngIf="surname.dirty && surname.invalid && surname.value.length<3 && surname.value.length>0">
+              Surname has to be greater than 2 characters
+            </mat-error>
+            <mat-error *ngIf="surname.dirty && surname.invalid && surname.value.length>55">
+              Surname has to be lesser than 56 characters
+            </mat-error>
+            <mat-error *ngIf="surname.dirty && surname.invalid && surname.value.length>=3 && surname.value.length<=55">
+              Surname has to be alphabetic without begining nor ending spaces
+            </mat-error>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="userType">Select type of account</mat-label>
+            <mat-select formControlName="type" name="userType">
+              <mat-option *ngFor="let userType of userTypes" [value]="userType">
+                {{userType}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="email">Enter your email:</mat-label>
+            <input matInput class="email-input" type="email" placeholder="Email" name="email" formControlName="email"
+              autocomplete="username">
+            <mat-error *ngIf="email.invalid && email.dirty && email.value ===''">
+              Email is Mandatory
+            </mat-error>
+            <mat-error *ngIf="email.dirty && email.invalid && email.value !=='' && !email.errors?.alreadyUsed">
+              Email has to be correct
+            </mat-error>
+            <mat-error *ngIf="email.invalid && email.errors?.alreadyUsed">
+              Email alredy used, choose another one
+            </mat-error>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="password">Enter your password:</mat-label>
+            <input matInput class="password-input" type="password" placeholder="Password" name="password"
+              formControlName="password" autocomplete="new-password">
+            <mat-error *ngIf="password.invalid && password.dirty && password.value ===''">
+              Password is Mandatory
+            </mat-error>
+            <mat-error *ngIf="password.dirty && password.invalid && password.value.length<8 && password.value.length>0">
+              Password has to be greater than 7 characters
+            </mat-error>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="repeatPassword">Repeat your password:</mat-label>
+            <input matInput class="repeat-password-input" type="password" placeholder="Repeat Password"
+              name="repeatPassword" formControlName="repeatPassword" autocomplete="new-password">
+            <mat-error *ngIf="repeatPassword.invalid && repeatPassword.dirty && repeatPassword.value ===''">
+              Repeated password is Mandatory
+            </mat-error>
+            <mat-error
+              *ngIf="repeatPassword.dirty && repeatPassword.invalid && repeatPassword.value.length<8 && repeatPassword.value.length>0">
+              Repeated password has to be greater than 7 characters
+            </mat-error>
+            <mat-error
+              *ngIf="repeatPassword.dirty && repeatPassword.invalid && repeatPassword.value.length>=8 && repeatPassword.errors?.passwordMismatch ">
+              Passwords didn't match
+            </mat-error>
+          </mat-form-field>
+        </section>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit"
           [disabled]="!registerForm.valid || (repeatPassword.value !== password.value)">Register</button>
-      </div>
+      </mat-card-actions>
     </form>
-  </div>
+  </mat-card>
 </div>
+
+<ng-template #loading>
+  <div class="register-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
