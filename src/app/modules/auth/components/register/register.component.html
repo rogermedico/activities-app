@@ -5,7 +5,7 @@
       <mat-card-content>
         <section>
           <mat-form-field appearance="outline">
-            <mat-label for="username">Enter your name:</mat-label>
+            <mat-label for="name">Enter your name:</mat-label>
             <input matInput type="text" placeholder="Name" name="name" formControlName="name">
             <mat-error *ngIf="name.invalid && name.dirty && name.value ===''">
               Username is Mandatory

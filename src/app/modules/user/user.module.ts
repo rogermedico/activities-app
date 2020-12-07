@@ -9,6 +9,8 @@ import { EducationComponent } from './components/education/education.component';
 import { EducationCrudComponent } from './components/education-crud/education-crud.component';
 import { LanguageComponent } from './components/language/language.component';
 import { LanguageCrudComponent } from './components/language-crud/language-crud.component';
+import { MaterialModule } from '@modules/material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { LanguageCrudComponent } from './components/language-crud/language-crud.
     CommonModule,
     FormsModule,
     UserRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
+    FlexLayoutModule
   ]
 })
 export class UserModule { }

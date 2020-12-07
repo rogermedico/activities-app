@@ -12,7 +12,7 @@ import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css']
+  styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit, OnDestroy {
 
@@ -21,6 +21,7 @@ export class EducationComponent implements OnInit, OnDestroy {
   public educations$: Observable<Education[]> = this.store$.select(UserSelectors.selectEducation);
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
+  public displayedColumns: string[] = ['type', 'level', 'name', 'university', 'finishDate'];
 
   constructor(private store$: Store<AppStore>, private router: Router,) { }
 

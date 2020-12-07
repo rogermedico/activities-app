@@ -16,8 +16,17 @@ function checkLetter(nif: string): boolean {
 
 export const nifValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
   const nationality = control.get('nationality').value;
-  if (nationality != 'ES') return null;
-  const nif = control.get('nif').value;
-  if (nif == null || nif == '') return null;
-  return checkLetter(nif) ? { nifValidationResult: true } : null;
+  const nif = control.get('nif');
+  if (nationality != 'ES') {
+    nif.setErrors(null);
+    return null;
+  }
+  if (nif.value == null || nif.value == '') return null;
+  if (checkLetter(nif.value)) {
+    nif.setErrors({ invalidNif: true });
+    return { nifValidationResult: true }
+  }
+  else {
+    return null;
+  }
 }

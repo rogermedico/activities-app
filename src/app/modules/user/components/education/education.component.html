@@ -1,6 +1,6 @@
 <div>
   <h2 class="section-title">{{title}}</h2>
-  <div class="education-content">
+  <!-- <div class="education-content">
     <div class="education-header education-row" *ngIf="(educations$ | async).length != 0">
       <span class="education-header-item">TYPE</span>
       <span class="education-header-item">LEVEL</span>
@@ -32,12 +32,39 @@
         </a>
       </span>
     </div>
+  </div> -->
+  <mat-table [dataSource]="educations$" class="mat-elevation-z4">
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="level">
+      <mat-header-cell *matHeaderCellDef>Level</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="university">
+      <mat-header-cell *matHeaderCellDef>University</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.university}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="finishDate">
+      <mat-header-cell *matHeaderCellDef>Finish Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.finishDate}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
 
 
-  </div>
-  <div class="education-new-button-container">
-    <button class="education-new-button" type="submit" (click)="createEducation()">
-      New Education
-    </button>
-  </div>
+</div>
+<div class="education-new-button-container">
+  <button class="education-new-button" type="submit" (click)="createEducation()">
+    New Education
+  </button>
 </div>

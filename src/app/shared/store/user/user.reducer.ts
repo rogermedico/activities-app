@@ -6,7 +6,9 @@ import { Action, createReducer, on } from '@ngrx/store';
 const defaultUserState: UserState = {
   user: null,
   loading: false,
+  loaded: true,
   edited: false,
+  saved: false,
   error: null
 };
 
@@ -16,7 +18,7 @@ const _userReducer = createReducer(defaultUserState,
   on(UserActions.UserSignin, state => {
     return {
       ...state,
-      loading: true,
+      loading: true, loaded: false,
       error: null
     }
   }),
@@ -27,6 +29,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -36,6 +39,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -45,6 +49,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -55,6 +60,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: null,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -64,6 +70,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -73,6 +80,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -82,7 +90,9 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       edited: true,
+      saved: false,
       error: null
     }
   }),
@@ -92,6 +102,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -101,6 +112,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -110,7 +122,9 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       edited: false,
+      saved: true,
       error: null
     }
   }),
@@ -120,6 +134,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -129,6 +144,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -139,7 +155,9 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       edited: false,
+      saved: true,
       error: null
     }
   }),
@@ -149,6 +167,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -158,6 +177,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -168,6 +188,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -177,6 +198,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -186,6 +208,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -196,6 +219,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -205,6 +229,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -214,6 +239,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -224,6 +250,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -233,6 +260,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -242,6 +270,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -252,6 +281,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -261,6 +291,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -270,6 +301,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -280,6 +312,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -289,6 +322,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -298,6 +332,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -308,6 +343,7 @@ const _userReducer = createReducer(defaultUserState,
       ...state,
       user: user,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -317,6 +353,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -326,6 +363,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -339,6 +377,7 @@ const _userReducer = createReducer(defaultUserState,
         favoriteActivities: favoriteActivities
       },
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -348,6 +387,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -357,6 +397,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -370,6 +411,7 @@ const _userReducer = createReducer(defaultUserState,
         favoriteActivities: favoriteActivities
       },
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -379,6 +421,7 @@ const _userReducer = createReducer(defaultUserState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   })
