@@ -7,16 +7,20 @@ import * as UserSelectors from '@store/user/user.selector';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '@models/user.model';
 import { map, take } from 'rxjs/operators';
+import { AuthState } from '@store/auth/auth.state';
+import * as AuthSelectors from '@store/auth/auth.selector';
 
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css']
+  styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent implements OnInit, OnDestroy {
 
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   private userSubscription: Subscription;
+  public authState$: Observable<AuthState> = this.store$.select(AuthSelectors.selectAuthState);
+  private authStateSubscription: Subscription;
 
   constructor(private store$: Store<AppStore>, private router: Router) { }
 
@@ -28,7 +32,12 @@ export class LogoutComponent implements OnInit, OnDestroy {
       })
     ).subscribe();
 
-    this.router.navigate(['']);
+    this.authStateSubscription = this.authState$.pipe(
+      map(as => {
+        if (as.loaded) this.router.navigate(['']);
+      })
+    ).subscribe();
+
   }
 
   ngOnDestroy(): void {
