@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <h2 class="section-title">{{title}}</h2>
   <div class="activity-content" *ngIf="activity">
     <div *ngIf="user && user.type !== 'company'" class="favorite-container">
@@ -70,4 +70,94 @@
   <div class="no-activity-selected-tooltip" *ngIf="!activity">
     No activity selected at the moment...
   </div>
+</div> -->
+
+<div class="activities-details-container" *ngIf="(activityState$ | async).loaded; else loading">
+  <mat-card class=" mat-elevation-z4">
+    <mat-card-header>
+      <mat-card-title>{{title}}</mat-card-title>
+      <div *ngIf="user && user.type !== 'company' && activity" class="favorite-container">
+        <a class="toggle-favorite-link" [routerLink]="" (click)="toggleFavorite()">
+          <mat-icon *ngIf="!favorite" class="material-icons md-36 no-fav-icon">
+            favorite_border
+          </mat-icon>
+          <mat-icon *ngIf="favorite" class="material-icons md-36 fav-icon">
+            favorite
+          </mat-icon>
+        </a>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+
+      <mat-list role="list" *ngIf="activity; else noActivity">
+        <mat-list-item role="listitem" *ngIf="activity.name">
+          <span class="activity-tooltip">Name:</span>
+          <span class="activity-item">{{activity.name}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.category">
+          <span class="activity-tooltip">Category:</span>
+          <span class="activity-item">{{activity.category}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.subcategory">
+          <span class="activity-tooltip">Subcategory:</span>
+          <span class="activity-item">{{activity.subcategory}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.description">
+          <span class="activity-tooltip">Description:</span>
+          <span class="activity-item">{{activity.description}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.language">
+          <span class="activity-tooltip">Language:</span>
+          <span class="activity-item">{{activity.language}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.date">
+          <span class="activity-tooltip">Date:</span>
+          <span class="activity-item">{{activity.date}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.price">
+          <span class="activity-tooltip">Price:</span>
+          <span class="activity-item">{{activity.price}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.miniumCapacity">
+          <span class="activity-tooltip">Minium capacity:</span>
+          <span class="activity-item">{{activity.miniumCapacity}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.maxCapacity">
+          <span class="activity-tooltip">Maxium capacity:</span>
+          <span class="activity-item">{{activity.maxCapacity}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.participatingUsers">
+          <span class="activity-tooltip">People registered:</span>
+          <span class="activity-item">{{activity.participatingUsers.length}}</span>
+        </mat-list-item>
+        <mat-list-item role="listitem" *ngIf="activity.state">
+          <span class="activity-tooltip">Status:</span>
+          <span class="activity-item">{{status}}</span>
+        </mat-list-item>
+      </mat-list>
+
+      <ng-template #noActivity>
+        <div class="no-activity-selected-tooltip" *ngIf="!activity">
+          No activity selected at the moment...
+        </div>
+      </ng-template>
+
+    </mat-card-content>
+    <mat-card-actions *ngIf="user && user.type !== 'company' && activity">
+      <button mat-raised-button color="primary" *ngIf="!activity.participatingUsers.includes(user.id)" type="submit"
+        (click)="signUp()" [disabled]="status != 'Available'">
+        Sign up
+      </button>
+      <button mat-raised-button color="primary" *ngIf="activity.participatingUsers.includes(user.id)" type="submit"
+        (click)="signOut()">
+        Sign out
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
+
+<ng-template #loading>
+  <div class="activities-details-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

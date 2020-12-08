@@ -1,0 +1,93 @@
+@import '../../../../../themes/responsive.theme.scss';
+
+.activities-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.card-title {
+  text-align: center;
+}
+
+.mat-card {
+  padding: 16px 32px;
+  width: 95%;
+}
+
+.mat-card-header{
+  display: block;
+  position: relative;
+  & .mat-card-title {
+    font-size: 24px;
+  }
+}
+
+.favorite-container {
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+.mat-card-title {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.mat-card-content {
+  margin: 0;
+}
+
+.activity-tooltip {
+  width: 35%;
+  padding: 5px 0;
+  text-align: left;
+  padding-right: 15px;
+}
+
+.activity-item {
+  width: 65%;
+  padding: 5px 0;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.mat-card>.mat-card-actions {
+  text-align: center;
+  margin: 0;
+  padding: 8px 0;
+
+  &:last-child {
+    padding: 8px 0;
+    margin: initial;
+  }
+}
+
+.material-icons.md-36 { font-size: 32px; }
+
+.toggle-favorite-link {
+    text-decoration: none;
+}
+
+.no-fav-icon {
+    color: rgba(0,0,0,0.87);
+}
+
+.no-fav-icon:hover {
+    color: rgba(0,0,0,0.54);
+}
+
+.fav-icon {
+    color: rgba(255,25,0,0.87);
+}
+    
+.fav-icon:hover {
+    color: rgba(255, 25, 0, 0.54);
+}
+
+.no-activity-selected-tooltip {
+    margin: 15px 0;
+    text-align: center;
+}

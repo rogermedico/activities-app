@@ -15,7 +15,7 @@ import { ActivityState } from '@store/activity/activity.state';
 @Component({
   selector: 'app-activities-details',
   templateUrl: './activities-details.component.html',
-  styleUrls: ['./activities-details.component.css']
+  styleUrls: ['./activities-details.component.scss']
 })
 export class ActivitiesDetailsComponent implements OnInit, OnDestroy {
 

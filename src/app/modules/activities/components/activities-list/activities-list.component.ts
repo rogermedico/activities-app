@@ -8,6 +8,8 @@ import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as ActivitySelectors from '@store/activity/activity.selector';
 import * as ActivityActions from '@store/activity/activity.action';
+import { ActivityState } from '@store/activity/activity.state';
+import { map, skipWhile, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-activities-list',
@@ -21,15 +23,26 @@ export class ActivitiesListComponent implements OnInit {
   public user: User;
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
+  public activitiesState$: Observable<ActivityState> = this.store$.select(ActivitySelectors.selectActivityState);
+  public activitiesStateSubscription: Subscription;
   public activities$: Observable<Activity[]> = this.store$.select(ActivitySelectors.selectActivities);
   public activitiesSubscription: Subscription;
+  public displayedColumns = ['name', 'language', 'date', 'price', 'actions'];
 
 
   constructor(private store$: Store<AppStore>, private router: Router) { }
 
   ngOnInit(): void {
 
-    this.store$.dispatch(ActivityActions.ActivityDeselect());
+    this.activitiesStateSubscription = this.activitiesState$.pipe(
+      skipWhile(as => as.loading == true),
+      take(1),
+      map(as => {
+        if (as.loaded) this.store$.dispatch(ActivityActions.ActivityDeselect())
+      })
+    ).subscribe();
+
+    // this.store$.dispatch(ActivityActions.ActivityDeselect());
 
     this.userSubscription = this.userLoggedIn$.subscribe(userLoggedIn => this.user = userLoggedIn);
     this.activitiesSubscription = this.activities$.subscribe(activities => {
@@ -47,6 +60,7 @@ export class ActivitiesListComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.activitiesStateSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.activitiesSubscription.unsubscribe();
   }
