@@ -1,3 +1,13 @@
-<app-personal-data></app-personal-data>
-<app-education></app-education>
-<app-language></app-language>
+<div *ngIf="(userState$ | async).loaded; else loading">
+  <app-personal-data></app-personal-data>
+  <mat-divider></mat-divider>
+  <app-education></app-education>
+  <mat-divider></mat-divider>
+  <app-language></app-language>
+</div>
+
+<ng-template #loading>
+  <div class="profile-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

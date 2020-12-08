@@ -5,24 +5,25 @@ import { Language } from '@models/language.model';
 import { AppStore } from '@store/root.state';
 import { User } from '@models/user.model';
 import { Store } from '@ngrx/store';
-import { UserService } from '@services/user.service';
 import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as UserActions from '@store/user/user.action';
 import { take } from 'rxjs/operators';
+import { UserState } from '@store/user/user.state';
 
 @Component({
   selector: 'app-language',
   templateUrl: './language.component.html',
-  styleUrls: ['./language.component.css']
+  styleUrls: ['./language.component.scss']
 })
 export class LanguageComponent implements OnInit, OnDestroy {
 
   public title: string = 'Languages';
+  public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
   public languages$: Observable<Language[]> = this.store$.select(UserSelectors.selectLanguages);
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscriber: Subscription;
-  public educationForm: FormGroup;
+  public displayedColumns: string[] = ['language', 'level', 'finishDate', 'actions'];
 
   constructor(private router: Router, private store$: Store<AppStore>) { }
 

@@ -8,11 +8,12 @@ import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as ActivitySelectors from '@store/activity/activity.selector';
 import * as ActivityActions from '@store/activity/activity.action';
+import { ActivityState } from '@store/activity/activity.state';
 
 @Component({
   selector: 'app-admin-activities',
   templateUrl: './admin-activities.component.html',
-  styleUrls: ['./admin-activities.component.css']
+  styleUrls: ['./admin-activities.component.scss']
 })
 export class AdminActivitiesComponent implements OnInit, OnDestroy {
 
@@ -21,8 +22,10 @@ export class AdminActivitiesComponent implements OnInit, OnDestroy {
   public activities: Activity[];
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
+  public activitiesState$: Observable<ActivityState> = this.store$.select(ActivitySelectors.selectActivityState);
   public activities$: Observable<Activity[]> = this.store$.select(ActivitySelectors.selectActivities);
   public activitiesSubscription: Subscription;
+  public displayedColumns = ['name', 'category', 'subcategory', 'description', 'language', 'date', 'price', 'miniumCapacity', 'maxCapacity', 'state', 'actions']
 
   constructor(private store$: Store<AppStore>, private router: Router) { }
 

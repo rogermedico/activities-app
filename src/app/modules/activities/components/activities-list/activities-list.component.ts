@@ -12,7 +12,7 @@ import * as ActivityActions from '@store/activity/activity.action';
 @Component({
   selector: 'app-activities-list',
   templateUrl: './activities-list.component.html',
-  styleUrls: ['./activities-list.component.css']
+  styleUrls: ['./activities-list.component.scss']
 })
 export class ActivitiesListComponent implements OnInit {
 

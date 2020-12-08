@@ -7,6 +7,7 @@ const defaultActivityState: ActivityState = {
   activities: null,
   activityToShow: null,
   loading: false,
+  loaded: true,
   error: null
 };
 
@@ -17,6 +18,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -27,6 +29,7 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       activities: activities,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -36,6 +39,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -45,6 +49,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -55,6 +60,7 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       activities: [...state.activities, activity],
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -64,6 +70,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -73,6 +80,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -86,6 +94,7 @@ const _activityReducer = createReducer(defaultActivityState,
         else return a;
       }),
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -95,6 +104,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -104,6 +114,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -114,6 +125,7 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       activities: state.activities.filter(a => a.id !== activityId),
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -123,6 +135,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -132,6 +145,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -142,6 +156,7 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       activityToShow: activityId,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -151,6 +166,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -160,6 +176,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -170,6 +187,7 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       activityToShow: null,
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -179,6 +197,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -188,6 +207,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -201,6 +221,7 @@ const _activityReducer = createReducer(defaultActivityState,
         else return ac;
       }),
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -210,6 +231,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),
@@ -219,6 +241,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: true,
+      loaded: false,
       error: null
     }
   }),
@@ -232,6 +255,7 @@ const _activityReducer = createReducer(defaultActivityState,
         else return ac;
       }),
       loading: false,
+      loaded: true,
       error: null
     }
   }),
@@ -241,6 +265,7 @@ const _activityReducer = createReducer(defaultActivityState,
     return {
       ...state,
       loading: false,
+      loaded: true,
       error: err
     }
   }),

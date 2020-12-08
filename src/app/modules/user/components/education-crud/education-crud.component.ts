@@ -7,21 +7,25 @@ import { User } from '@models/user.model';
 import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as UserActions from '@store/user/user.action';
-import { take } from 'rxjs/operators';
+import { map, skipWhile, take } from 'rxjs/operators';
 import { AppStore } from '@store/root.state';
 import { Store } from '@ngrx/store';
 import * as RouterSelectors from '@store/router/router.selector';
+import { UserState } from '@store/user/user.state';
 
 @Component({
   selector: 'app-education-crud',
   templateUrl: './education-crud.component.html',
-  styleUrls: ['./education-crud.component.css']
+  styleUrls: ['./education-crud.component.scss']
 })
 export class EducationCrudComponent implements OnInit, OnDestroy {
 
   public title: String;
+  public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
+  public userStateSubscription: Subscription;
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
+  public userLoggedIn: User;
   public RouteParams$: Observable<Params> = this.store$.select(RouterSelectors.selectParams);
   public routeParamsSubscription: Subscription;
   public education: Education = {
@@ -54,12 +58,14 @@ export class EducationCrudComponent implements OnInit, OnDestroy {
         this.buttonTag = 'Create education';
       }
       this.createForm(this.education);
+      this.userLoggedIn = u;
     })
   }
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
     this.routeParamsSubscription.unsubscribe();
+    if (this.userStateSubscription) this.userStateSubscription.unsubscribe();
   }
 
   createForm(e: Education) {
@@ -97,17 +103,19 @@ export class EducationCrudComponent implements OnInit, OnDestroy {
       finishDate: this.finishDate.value
     }
 
-    this.userLoggedIn$.pipe(
-      take(1)
-    ).subscribe(u => {
-      if (this.educationIndex != null) {
-        this.store$.dispatch(UserActions.UserUpdateEducation({ user: u, oldEducation: this.education, newEducation: edu }));
-      }
-      else {
-        this.store$.dispatch(UserActions.UserCreateEducation({ user: u, education: edu }));
-      }
-    });
-    this.router.navigate(['/user/profile']);
+    if (this.educationIndex != null) {
+      this.store$.dispatch(UserActions.UserUpdateEducation({ user: this.userLoggedIn, oldEducation: this.education, newEducation: edu }));
+    }
+    else {
+      this.store$.dispatch(UserActions.UserCreateEducation({ user: this.userLoggedIn, education: edu }));
+    }
+
+    this.userStateSubscription = this.userState$.pipe(
+      skipWhile(us => us.loading === true),
+      map(us => {
+        if (us.loaded) this.router.navigate(['/user/profile']);
+      })
+    ).subscribe();
 
   }
 

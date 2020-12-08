@@ -1,38 +1,54 @@
-<div>
-  <h2 class="section-title">{{title}}</h2>
-  <div class="form-group">
+<div class="language-crud-container" *ngIf="(userState$ | async).loaded; else loading">
+  <mat-card class=" mat-elevation-z4">
+    <mat-card-title>{{title}}</mat-card-title>
     <form [formGroup]="languageForm" (ngSubmit)="handleLanguageForm()">
-      <div class="input-container">
-        <select class="name-input" formControlName="name">
-          <option value="" [selected]="language?.name == null">Select language name</option>
-          <option *ngFor="let name of languageNames" [selected]="language?.name == name">
-            {{name}}
-          </option>
-        </select>
-        <div class="error" *ngIf="name.invalid && name.dirty">
-          Name of language is mandatory
-        </div>
-      </div>
-      <div class="input-container">
-        <select class="level-input" formControlName="level">
-          <option value="" [selected]="language?.level == ''">Select language level</option>
-          <option *ngFor="let langLevel of languageLevels" [selected]="language?.level == langLevel">
-            {{langLevel}}
-          </option>
-        </select>
-        <div class="error" *ngIf="level.invalid && level.dirty">
-          Level achieved is mandatory
-        </div>
-      </div>
-      <div class="input-container">
-        <input class="finish-date-input" type="text" placeholder="Finish date" name="finishDate"
-          formControlName="finishDate">
-        <div class="error" *ngIf="finishDate.dirty && finishDate.invalid">
-          Finish date has to be in DD/MM/YYYY format
-        </div>
-      </div>
-      <button class="submit-button" type="submit"
-        [disabled]="!languageForm.valid">{{languageIndex != null?'Update language':'Create language'}}</button>
+      <mat-card-content>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="languageName">Select language name:</mat-label>
+            <mat-select formControlName="name" name="languageName" [value]="language.name">
+              <mat-option *ngFor="let name of languageNames" [value]="name">
+                {{name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="name.invalid && name.dirty">
+              Name of language is mandatory
+            </mat-error>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="languageLevel">Selectlanguage level:</mat-label>
+            <mat-select formControlName="level" name="languageLevel" [value]="language.level">
+              <mat-option *ngFor="let langLevel of languageLevels" [value]="langLevel">
+                {{langLevel}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="level.invalid && level.dirty">
+              Level achieved is mandatory
+            </mat-error>
+          </mat-form-field>
+        </section>
+        <section>
+          <mat-form-field appearance="outline">
+            <mat-label for="finishDate">Finish date:</mat-label>
+            <input matInput type="text" name="finishDate" formControlName="finishDate">
+            <mat-error class="error" *ngIf="finishDate.dirty && finishDate.invalid">
+              Finish date has to be in DD/MM/YYYY format
+            </mat-error>
+          </mat-form-field>
+        </section>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit"
+          [disabled]="!languageForm.valid">{{languageIndex != null?'Update language':'Create language'}}</button>
+      </mat-card-actions>
     </form>
-  </div>
+  </mat-card>
 </div>
+
+<ng-template #loading>
+  <div class="language-crud-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

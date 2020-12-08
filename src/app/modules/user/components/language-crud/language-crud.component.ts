@@ -10,17 +10,21 @@ import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as UserActions from '@store/user/user.action';
 import * as RouterSelectors from '@store/router/router.selector';
-import { take } from 'rxjs/operators';
+import { map, skipWhile, take } from 'rxjs/operators';
+import { UserState } from '@store/user/user.state';
 
 @Component({
   selector: 'app-language-crud',
   templateUrl: './language-crud.component.html',
-  styleUrls: ['./language-crud.component.css']
+  styleUrls: ['./language-crud.component.scss']
 })
 export class LanguageCrudComponent implements OnInit {
 
   public title: String;
+  public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
+  public userStateSubscription: Subscription;
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
+  public user: User;
   public userSubscription: Subscription;
   public RouteParams$: Observable<Params> = this.store$.select(RouterSelectors.selectParams);
   public routeParamsSubscription: Subscription;
@@ -53,6 +57,7 @@ export class LanguageCrudComponent implements OnInit {
       }
 
       this.createForm(this.language);
+      this.user = u;
 
     });
   }
@@ -60,6 +65,7 @@ export class LanguageCrudComponent implements OnInit {
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
     this.routeParamsSubscription.unsubscribe();
+    if (this.userStateSubscription) this.userStateSubscription.unsubscribe();
   }
 
   createForm(lang: Language) {
@@ -77,17 +83,25 @@ export class LanguageCrudComponent implements OnInit {
       finishDate: this.finishDate.value
     }
 
+    if (this.languageIndex != null) {
+      this.store$.dispatch(UserActions.UserUpdateLanguage({ user: this.user, oldLanguage: this.language, newLanguage: lang }));
+    }
+    else {
+      this.store$.dispatch(UserActions.UserCreateLanguage({ user: this.user, language: lang }));
+    }
+
     this.userLoggedIn$.pipe(
       take(1)
     ).subscribe(u => {
-      if (this.languageIndex != null) {
-        this.store$.dispatch(UserActions.UserUpdateLanguage({ user: u, oldLanguage: this.language, newLanguage: lang }));
-      }
-      else {
-        this.store$.dispatch(UserActions.UserCreateLanguage({ user: u, language: lang }));
-      }
+
     });
-    this.router.navigate(['/user/profile']);
+
+    this.userStateSubscription = this.userState$.pipe(
+      skipWhile(us => us.loading === true),
+      map(us => {
+        if (us.loaded) this.router.navigate(['/user/profile']);
+      })
+    ).subscribe();
 
   }
 

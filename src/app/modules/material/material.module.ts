@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { MatNativeDateModule } from '@angular/material/core';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -37,6 +39,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   declarations: [],
   bootstrap: [],
   exports: [
+    MatNativeDateModule,
     MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,

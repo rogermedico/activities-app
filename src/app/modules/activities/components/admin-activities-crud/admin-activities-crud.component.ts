@@ -17,18 +17,22 @@ import * as ActivitySelectors from '@store/activity/activity.selector';
 import * as RouterSelectors from '@store/router/router.selector';
 import * as ActivityActions from '@store/activity/activity.action';
 import { ACTIVITY_STATUS } from '@constants/activity-status.constant';
-import { map, skipWhile } from 'rxjs/operators';
+import { map, skipWhile, take } from 'rxjs/operators';
+import { UserState } from '@store/user/user.state';
+import { ActivityState } from '@store/activity/activity.state';
 
 @Component({
   selector: 'app-admin-activities-crud',
   templateUrl: './admin-activities-crud.component.html',
-  styleUrls: ['./admin-activities-crud.component.css']
+  styleUrls: ['./admin-activities-crud.component.scss']
 })
 export class AdminActivitiesCrudComponent implements OnInit, OnDestroy {
 
 
   public title: String;
   public user: User;
+  public activitiesState$: Observable<ActivityState> = this.store$.select(ActivitySelectors.selectActivityState);
+  public activitiesStateSubscription: Subscription;
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
   public RouteParams$: Observable<Params> = this.store$.select(RouterSelectors.selectParams);
@@ -57,6 +61,7 @@ export class AdminActivitiesCrudComponent implements OnInit, OnDestroy {
   public languages = Object.values(LANGUAGES);
   public activityStatus = Object.values(ACTIVITY_STATUS);
   public ACTIVITY_STATUS = ACTIVITY_STATUS;
+  public CATEGORY_TYPES = CATEGORY_TYPES;
 
   constructor(private store$: Store<AppStore>, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { }
 
@@ -91,6 +96,7 @@ export class AdminActivitiesCrudComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
     this.routeParamsSubscription.unsubscribe();
     this.activitiesSubscription.unsubscribe();
+    if (this.activitiesStateSubscription) this.activitiesStateSubscription.unsubscribe();
   }
 
   createForm(ac: Activity) {
@@ -150,7 +156,12 @@ export class AdminActivitiesCrudComponent implements OnInit, OnDestroy {
       this.store$.dispatch(ActivityActions.ActivityCreate({ activity: activity }));
     }
 
-    this.router.navigate(['/activities/admin']);
+    this.activitiesStateSubscription = this.activitiesState$.pipe(
+      skipWhile(as => as.loading === true),
+      map(as => {
+        if (as.loaded) this.router.navigate(['/activities/admin']);
+      })
+    ).subscribe();
 
   }
 

@@ -8,6 +8,7 @@ import * as UserActions from '@store/user/user.action';
 import { AppStore } from '@store/root.state';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
+import { UserState } from '@store/user/user.state';
 
 @Component({
   selector: 'app-education',
@@ -18,10 +19,11 @@ export class EducationComponent implements OnInit, OnDestroy {
 
   public title: string = 'Education';
   public user: User;
+  public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
   public educations$: Observable<Education[]> = this.store$.select(UserSelectors.selectEducation);
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
-  public displayedColumns: string[] = ['type', 'level', 'name', 'university', 'finishDate'];
+  public displayedColumns: string[] = ['type', 'level', 'name', 'university', 'finishDate', 'actions'];
 
   constructor(private store$: Store<AppStore>, private router: Router,) { }
 

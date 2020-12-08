@@ -6,6 +6,8 @@ import { AdminActivitiesComponent } from './components/admin-activities/admin-ac
 import { ActivitiesRoutingModule } from './activities-routing.module';
 import { AdminActivitiesCrudComponent } from './components/admin-activities-crud/admin-activities-crud.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@modules/material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ActivitiesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
+    FlexLayoutModule
   ],
   exports: [
     ActivitiesListComponent,

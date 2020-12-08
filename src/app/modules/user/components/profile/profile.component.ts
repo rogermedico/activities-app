@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '@services/user.service';
+import { Store } from '@ngrx/store';
+import * as UserSelectors from '@store/user/user.selector';
+import { UserState } from '@store/user/user.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +11,9 @@ import { UserService } from '@services/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
+
+  constructor(private store$: Store) { }
 
   ngOnInit(): void {
   }

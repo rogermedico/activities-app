@@ -1,6 +1,6 @@
 @import '../../../../../themes/responsive.theme.scss';
 
-.education-container {
+.education-crud-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,16 @@
 
 .mat-card {
   padding: 16px 32px;
-  width: 95%;
+  width: 80%;
+
+  @include screen('md'){
+    width: 50%;
+  }
+
+  @include screen('xl'){
+    width: 33%;
+  }
+
 }
 
 .mat-card-title {
@@ -29,33 +38,9 @@
 .mat-card-actions {
   text-align: center;
   margin: 0;
-  padding: 8px 0;
-
-  &:last-child {
-    padding: 8px 0;
-    margin: initial;
-  }
 }
 
-.mat-table {
+.mat-form-field {
   width: 100%;
-  padding-bottom: 10px;
-}
-
-
-.action-icon {
-    color: rgba(0,0,0,0.87);
-    &:hover {
-      color: rgba(0, 0, 0, 0.54);
-    }
-}
-
-.action-link {
-    text-decoration: none;
-    margin: 0 8px 0 0;
-
-    &:last-child {
-      margin: 0;
-    }
-
+  margin-bottom: 10px;
 }
