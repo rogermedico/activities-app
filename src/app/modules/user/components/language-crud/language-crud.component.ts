@@ -99,7 +99,7 @@ export class LanguageCrudComponent implements OnInit {
     this.userStateSubscription = this.userState$.pipe(
       skipWhile(us => us.loading === true),
       map(us => {
-        if (us.loaded) this.router.navigate(['/user/profile']);
+        if (us.loaded) this.router.navigate(['/user/languages']);
       })
     ).subscribe();
 

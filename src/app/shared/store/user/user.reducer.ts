@@ -543,6 +543,20 @@ const _userReducer = createReducer(defaultUserState,
       loaded: true,
       error: err
     }
+  }),
+
+  /* reset flags */
+  on(UserActions.UserResetFlags, (state) => {
+    return {
+      ...state,
+      profileEdit: false,
+      educationCreate: false,
+      educationEdit: false,
+      educationDelete: false,
+      languageCreate: false,
+      languageEdit: false,
+      languageDelete: false
+    }
   })
 
 );

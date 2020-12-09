@@ -56,6 +56,8 @@ export enum UserActionTypes {
   USER_TOGGLE_FAVORITE_ACTIVITY = '[User/Favorite] USER_TOGGLE_FAVORITE_ACTIVITY',
   USER_TOGGLE_FAVORITE_ACTIVITY_SUCCESS = '[User/Favorite] USER_TOGGLE_FAVORITE_ACTIVITYE_SUCCESS',
   USER_TOGGLE_FAVORITE_ACTIVITY_ERROR = '[User/Favorite] USER_TOGGLE_FAVORITE_ACTIVITY_ERROR',
+
+  USER_RESET_FLAGS = '[User] USER_RESET_FLAGS',
 }
 
 /* signin */
@@ -122,3 +124,6 @@ export const UserLoadFavoriteActivitiesError = createAction(UserActionTypes.USER
 export const UserToggleFavoriteActivity = createAction(UserActionTypes.USER_TOGGLE_FAVORITE_ACTIVITY, props<{ user: User, activityId: number }>());
 export const UserToggleFavoriteActivitySuccess = createAction(UserActionTypes.USER_TOGGLE_FAVORITE_ACTIVITY_SUCCESS, props<{ favoriteActivities: number[] }>());
 export const UserToggleFavoriteActivityError = createAction(UserActionTypes.USER_TOGGLE_FAVORITE_ACTIVITY_ERROR, props<{ err: String }>());
+
+/* reset flags */
+export const UserResetFlags = createAction(UserActionTypes.USER_RESET_FLAGS);

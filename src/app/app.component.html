@@ -52,14 +52,15 @@
         </a>
       </li>
       <li fxHide fxShow.gt-sm *ngIf="(userLoggedIn$ | async)">
-        <a class="toolbar__link" routerLink="/user/profile" routerLinkActive="active">
-          <button mat-button>Profile</button>
-        </a>
+        <button mat-button [matMenuTriggerFor]="userMenu">User</button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/user/profile">Profile</button>
+          <button mat-menu-item routerLink="/user/education">Education</button>
+          <button mat-menu-item routerLink="/user/languages">Languages</button>
+        </mat-menu>
       </li>
       <li *ngIf="(userLoggedIn$ | async)">
-        <a class="toolbar__link" routerLink="/auth/logout" routerLinkActive="active">
-          <button mat-button (click)="sidenav.close()">Logout</button>
-        </a>
+        <button mat-button routerLink="/auth/logout" (click)="sidenav.close()">Logout</button>
       </li>
     </ul>
   </div>
@@ -88,6 +89,14 @@
       <a mat-list-item *ngIf="(userLoggedIn$ | async)" routerLink="/user/profile" routerLinkActive="active-sidenav-item"
         (click)="sidenav.close()">
         <span class="nav-caption">Profile</span>
+      </a>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async)" routerLink="/user/education"
+        routerLinkActive="active-sidenav-item" (click)="sidenav.close()">
+        <span class="nav-caption">Education</span>
+      </a>
+      <a mat-list-item *ngIf="(userLoggedIn$ | async)" routerLink="/user/languages"
+        routerLinkActive="active-sidenav-item" (click)="sidenav.close()">
+        <span class="nav-caption">Languages</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

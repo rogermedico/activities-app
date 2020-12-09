@@ -10,9 +10,11 @@ import * as UserSelectors from '@store/user/user.selector';
 import { map, take, tap } from 'rxjs/operators';
 import { USER_TYPES } from '@constants/user-types.constant';
 import * as UserActions from '@store/user/user.action';
+import * as RouterSelectors from '@store/router/router.selector';
 import { UserState } from '@store/user/user.state';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarService } from '@services/snack-bar.service';
+import { RouterReducerState } from '@ngrx/router-store';
+import { RouterStateUrl } from '@store/router/router.state';
 
 
 @Component({
@@ -56,13 +58,6 @@ export class PersonalDataComponent implements OnInit, OnDestroy {
 
     this.snackBarSubscription = this.userState$.pipe(
       map(us => {
-        // if (us.profileEdit) this.openSnackBar('Profile successfully updated');
-        // if (us.educationCreate) this.openSnackBar('New education created');
-        // if (us.educationEdit) this.openSnackBar('Education successfully updated');
-        // if (us.educationDelete) this.openSnackBar('Education deleted');
-        // if (us.languageCreate) this.openSnackBar('New language created');
-        // if (us.languageEdit) this.openSnackBar('Language successfully updated');
-        // if (us.languageDelete) this.openSnackBar('Language deleted');
         if (us.profileEdit) this.snackBarService.openSnackBar('Profile successfully updated', 'OK', {
           duration: 4000,
           horizontalPosition: 'center',

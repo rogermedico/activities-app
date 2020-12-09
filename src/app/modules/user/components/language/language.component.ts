@@ -8,9 +8,12 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as UserActions from '@store/user/user.action';
+import * as RouterSelectors from '@store/router/router.selector';
 import { map, take } from 'rxjs/operators';
 import { UserState } from '@store/user/user.state';
 import { SnackBarService } from '@services/snack-bar.service';
+import { RouterReducerState } from '@ngrx/router-store';
+import { RouterStateUrl } from '@store/router/router.state';
 
 @Component({
   selector: 'app-language',
@@ -59,11 +62,11 @@ export class LanguageComponent implements OnInit, OnDestroy {
   }
 
   createLanguage() {
-    this.router.navigate(['/user/language']);
+    this.router.navigate(['/user/languages/new']);
   }
 
   updateLanguage(i: number) {
-    this.router.navigate(['/user/language', i]);
+    this.router.navigate(['/user/languages/edit', i]);
   }
 
   deleteLanguage(language: Language) {
