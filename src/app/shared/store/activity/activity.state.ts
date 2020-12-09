@@ -5,5 +5,8 @@ export interface ActivityState {
   activityToShow: number;
   loading: boolean;
   loaded: boolean;
+  activityCreate: boolean;
+  activityEdit: boolean;
+  activityDelete: boolean;
   error: Error;
 }

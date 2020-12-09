@@ -8,6 +8,9 @@ const defaultActivityState: ActivityState = {
   activityToShow: null,
   loading: false,
   loaded: true,
+  activityCreate: false,
+  activityEdit: false,
+  activityDelete: false,
   error: null
 };
 
@@ -19,6 +22,9 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       loading: true,
       loaded: false,
+      activityCreate: false,
+      activityEdit: false,
+      activityDelete: false,
       error: null
     }
   }),
@@ -50,6 +56,9 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       loading: true,
       loaded: false,
+      activityCreate: false,
+      activityEdit: false,
+      activityDelete: false,
       error: null
     }
   }),
@@ -61,6 +70,9 @@ const _activityReducer = createReducer(defaultActivityState,
       activities: [...state.activities, activity],
       loading: false,
       loaded: true,
+      activityCreate: true,
+      activityEdit: false,
+      activityDelete: false,
       error: null
     }
   }),
@@ -81,6 +93,9 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       loading: true,
       loaded: false,
+      activityCreate: false,
+      activityEdit: false,
+      activityDelete: false,
       error: null
     }
   }),
@@ -95,6 +110,9 @@ const _activityReducer = createReducer(defaultActivityState,
       }),
       loading: false,
       loaded: true,
+      activityCreate: false,
+      activityEdit: true,
+      activityDelete: false,
       error: null
     }
   }),
@@ -115,6 +133,9 @@ const _activityReducer = createReducer(defaultActivityState,
       ...state,
       loading: true,
       loaded: false,
+      activityCreate: false,
+      activityEdit: false,
+      activityDelete: false,
       error: null
     }
   }),
@@ -126,6 +147,9 @@ const _activityReducer = createReducer(defaultActivityState,
       activities: state.activities.filter(a => a.id !== activityId),
       loading: false,
       loaded: true,
+      activityCreate: false,
+      activityEdit: false,
+      activityDelete: true,
       error: null
     }
   }),

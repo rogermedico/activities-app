@@ -8,8 +8,9 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import * as UserSelectors from '@store/user/user.selector';
 import * as UserActions from '@store/user/user.action';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { UserState } from '@store/user/user.state';
+import { SnackBarService } from '@services/snack-bar.service';
 
 @Component({
   selector: 'app-language',
@@ -20,18 +21,40 @@ export class LanguageComponent implements OnInit, OnDestroy {
 
   public title: string = 'Languages';
   public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
+  public userStateSubscription: Subscription;
   public languages$: Observable<Language[]> = this.store$.select(UserSelectors.selectLanguages);
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscriber: Subscription;
   public displayedColumns: string[] = ['language', 'level', 'finishDate', 'actions'];
 
-  constructor(private router: Router, private store$: Store<AppStore>) { }
+  constructor(private router: Router, private store$: Store<AppStore>, private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
+
+    this.userStateSubscription = this.userState$.pipe(
+      map(us => {
+        if (us.languageCreate) this.snackBarService.openSnackBar('New language created', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+        if (us.languageEdit) this.snackBarService.openSnackBar('Language successfully updated', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+        if (us.languageDelete) this.snackBarService.openSnackBar('Language deleted', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+      })
+    ).subscribe();
 
   }
 
   ngOnDestroy(): void {
+    this.userStateSubscription.unsubscribe();
     if (this.userSubscriber) this.userSubscriber.unsubscribe();
   }
 

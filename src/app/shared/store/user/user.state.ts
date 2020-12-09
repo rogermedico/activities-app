@@ -6,5 +6,12 @@ export interface UserState {
   loaded: boolean;
   edited: boolean;
   saved: boolean;
+  profileEdit: boolean;
+  educationCreate: boolean;
+  educationEdit: boolean;
+  educationDelete: boolean;
+  languageCreate: boolean;
+  languageEdit: boolean;
+  languageDelete: boolean;
   error: Error;
 }

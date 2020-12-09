@@ -7,8 +7,9 @@ import * as UserSelectors from '@store/user/user.selector';
 import * as UserActions from '@store/user/user.action';
 import { AppStore } from '@store/root.state';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { UserState } from '@store/user/user.state';
+import { SnackBarService } from '@services/snack-bar.service';
 
 @Component({
   selector: 'app-education',
@@ -20,21 +21,39 @@ export class EducationComponent implements OnInit, OnDestroy {
   public title: string = 'Education';
   public user: User;
   public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
+  public userStateSubscription: Subscription;
   public educations$: Observable<Education[]> = this.store$.select(UserSelectors.selectEducation);
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public userSubscription: Subscription;
   public displayedColumns: string[] = ['type', 'level', 'name', 'university', 'finishDate', 'actions'];
 
-  constructor(private store$: Store<AppStore>, private router: Router,) { }
+  constructor(private store$: Store<AppStore>, private router: Router, private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
-
+    this.userStateSubscription = this.userState$.pipe(
+      map(us => {
+        if (us.languageCreate) this.snackBarService.openSnackBar('New language created', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+        if (us.languageEdit) this.snackBarService.openSnackBar('Language successfully updated', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+        if (us.languageDelete) this.snackBarService.openSnackBar('Language deleted', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
+      })
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
-    }
+    this.userStateSubscription.unsubscribe();
+    if (this.userSubscription) this.userSubscription.unsubscribe();
   }
 
   createEducation() {

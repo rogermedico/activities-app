@@ -12,6 +12,7 @@ import { USER_TYPES } from '@constants/user-types.constant';
 import * as UserActions from '@store/user/user.action';
 import { UserState } from '@store/user/user.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from '@services/snack-bar.service';
 
 
 @Component({
@@ -30,11 +31,10 @@ export class PersonalDataComponent implements OnInit, OnDestroy {
   public userState$: Observable<UserState> = this.store$.select(UserSelectors.selectUserState);
   public userStateSubscriber: Subscription;
   public snackBarSubscription: Subscription;
-  public profileSaved: Boolean = false;
   public profileForm: FormGroup;
   public profileFormValueChangesSubscriber: Subscription;
 
-  constructor(private store$: Store<AppStore>, private fb: FormBuilder, private snackBar: MatSnackBar) { }
+  constructor(private store$: Store<AppStore>, private fb: FormBuilder, private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
 
@@ -56,10 +56,18 @@ export class PersonalDataComponent implements OnInit, OnDestroy {
 
     this.snackBarSubscription = this.userState$.pipe(
       map(us => {
-        if (us.loaded && !us.edited && this.profileSaved) {
-          this.openSnackBar();
-          console.log('open snak bar')
-        }
+        // if (us.profileEdit) this.openSnackBar('Profile successfully updated');
+        // if (us.educationCreate) this.openSnackBar('New education created');
+        // if (us.educationEdit) this.openSnackBar('Education successfully updated');
+        // if (us.educationDelete) this.openSnackBar('Education deleted');
+        // if (us.languageCreate) this.openSnackBar('New language created');
+        // if (us.languageEdit) this.openSnackBar('Language successfully updated');
+        // if (us.languageDelete) this.openSnackBar('Language deleted');
+        if (us.profileEdit) this.snackBarService.openSnackBar('Profile successfully updated', 'OK', {
+          duration: 4000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
       })
     ).subscribe();
 
@@ -114,18 +122,16 @@ export class PersonalDataComponent implements OnInit, OnDestroy {
       }
 
       this.store$.dispatch(UserActions.UserUpdatePersonalData({ user: user }));
-      this.profileSaved = true;
     }
   }
 
-  openSnackBar() {
-    this.snackBar.open('Profile successfully updated', 'OK', {
-      duration: 4000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-    this.profileSaved = false;
-  }
+  // openSnackBar(msg: string) {
+  //   this.snackBar.open(msg, 'OK', {
+  //     duration: 4000,
+  //     horizontalPosition: 'center',
+  //     verticalPosition: 'top',
+  //   });
+  // }
 
   get name() { return this.profileForm.get('name'); }
 
