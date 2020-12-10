@@ -1,81 +1,8 @@
-<!-- <div>
-  <h2 class="section-title">{{title}}</h2>
-  <div class="activity-content" *ngIf="activity">
-    <div *ngIf="user && user.type !== 'company'" class="favorite-container">
-      <a class="toggle-favorite-link" [routerLink]="" (click)="toggleFavorite()">
-        <span *ngIf="!favorite" class="material-icons md-36 no-fav-icon">
-          favorite_border
-        </span>
-        <span *ngIf="favorite" class="material-icons md-36 fav-icon">
-          favorite
-        </span>
-      </a>
-    </div>
-    <div class="activity-row" *ngIf="activity.name">
-      <span class="activity-tooltip">NAME:</span>
-      <span class="activity-item">{{activity.name}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.category">
-      <span class="activity-tooltip">CATEGORY:</span>
-      <span class="activity-item">{{activity.category}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.subcategory">
-      <span class="activity-tooltip">SUBCATEGORY:</span>
-      <span class="activity-item">{{activity.subcategory}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.description">
-      <span class="activity-tooltip">DESCRIPTION:</span>
-      <span class="activity-item">{{activity.description}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.language">
-      <span class="activity-tooltip">LANGUAGE:</span>
-      <span class="activity-item">{{activity.language}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.date">
-      <span class="activity-tooltip">DATE:</span>
-      <span class="activity-item">{{activity.date}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.price">
-      <span class="activity-tooltip">PRICE:</span>
-      <span class="activity-item">{{activity.price}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.miniumCapacity">
-      <span class="activity-tooltip">MINIUM CAPACITY:</span>
-      <span class="activity-item">{{activity.miniumCapacity}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.maxCapacity">
-      <span class="activity-tooltip">MAXIUM CAPACITY:</span>
-      <span class="activity-item">{{activity.maxCapacity}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.participatingUsers">
-      <span class="activity-tooltip">PEOPLE REGISTERED:</span>
-      <span class="activity-item">{{activity.participatingUsers.length}}</span>
-    </div>
-    <div class="activity-row" *ngIf="activity.state">
-      <span class="activity-tooltip">STATUS:</span>
-      <span class="activity-item">{{status}}</span>
-    </div>
-    <div *ngIf="user && user.type !== 'company'" class="sign-up-button-container">
-      <button *ngIf="!activity.participatingUsers.includes(user.id)" class="submit-button" type="submit"
-        (click)="signUp()" [disabled]="status != 'Available'">
-        Sign up
-      </button>
-      <button *ngIf="activity.participatingUsers.includes(user.id)" class="submit-button" type="submit"
-        (click)="signOut()">
-        Sign out
-      </button>
-    </div>
-  </div>
-
-  <div class="no-activity-selected-tooltip" *ngIf="!activity">
-    No activity selected at the moment...
-  </div>
-</div> -->
-
-<div class="activities-details-container" *ngIf="(activityState$ | async).loaded; else loading">
-  <mat-card class=" mat-elevation-z4">
+<div class="activities-details-container" *ngIf="(activityState$ | async).activityToShow">
+  <mat-card class=" mat-elevation-z4" *ngIf="(activityState$ | async).loaded; else loading">
     <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
+      <mat-card-title>{{activity.name}}</mat-card-title>
+      <mat-card-subtitle>{{activity.date}} </mat-card-subtitle>
       <div *ngIf="user && user.type !== 'company' && activity" class="favorite-container">
         <a class="toggle-favorite-link" [routerLink]="" (click)="toggleFavorite()">
           <mat-icon *ngIf="!favorite" class="material-icons md-36 no-fav-icon">
@@ -88,59 +15,48 @@
       </div>
     </mat-card-header>
     <mat-card-content>
-
-      <mat-list role="list" *ngIf="activity; else noActivity">
-        <mat-list-item role="listitem" *ngIf="activity.name">
-          <span class="activity-tooltip">Name:</span>
-          <span class="activity-item">{{activity.name}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.category">
+      <div fxLayout="row wrap" fxLayoutGap="grid">
+        <div class="activity-detail-row" fxFlex="100%" fxFlex.gt-sm="50%">
           <span class="activity-tooltip">Category:</span>
-          <span class="activity-item">{{activity.category}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.subcategory">
-          <span class="activity-tooltip">Subcategory:</span>
-          <span class="activity-item">{{activity.subcategory}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.description">
-          <span class="activity-tooltip">Description:</span>
-          <span class="activity-item">{{activity.description}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.language">
-          <span class="activity-tooltip">Language:</span>
-          <span class="activity-item">{{activity.language}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.date">
-          <span class="activity-tooltip">Date:</span>
-          <span class="activity-item">{{activity.date}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.price">
-          <span class="activity-tooltip">Price:</span>
-          <span class="activity-item">{{activity.price}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.miniumCapacity">
-          <span class="activity-tooltip">Minium capacity:</span>
-          <span class="activity-item">{{activity.miniumCapacity}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.maxCapacity">
-          <span class="activity-tooltip">Maxium capacity:</span>
-          <span class="activity-item">{{activity.maxCapacity}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.participatingUsers">
-          <span class="activity-tooltip">People registered:</span>
-          <span class="activity-item">{{activity.participatingUsers.length}}</span>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngIf="activity.state">
-          <span class="activity-tooltip">Status:</span>
-          <span class="activity-item">{{status}}</span>
-        </mat-list-item>
-      </mat-list>
-
-      <ng-template #noActivity>
-        <div class="no-activity-selected-tooltip" *ngIf="!activity">
-          No activity selected at the moment...
+          <span class="activity-item"> {{activity.category}}</span>
         </div>
-      </ng-template>
+        <div class="activity-detail-row" fxFlex="100%" fxFlex.gt-sm="50%">
+          <span class="activity-tooltip">Subcategory:</span>
+          <span class="activity-item"> {{activity.subcategory}}</span>
+        </div>
+      </div>
+      <div class="activity-detail-row">
+        <span class="activity-tooltip">Description:</span>
+        <span class="activity-item"> {{activity.description}}</span>
+      </div>
+      <div class="activity-detail-row">
+        <span class="activity-tooltip">Language:</span>
+        <span class="activity-item"> {{activity.language}}</span>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="grid">
+        <div class="activity-detail-row" fxFlex="100%" fxFlex.gt-sm="50%">
+          <span class="activity-tooltip">Minium capacity:</span>
+          <span class="activity-item"> {{activity.miniumCapacity}}</span>
+        </div>
+        <div class="activity-detail-row" fxFlex="100%" fxFlex.gt-sm="50%">
+          <span class="activity-tooltip">Maxium capacity:</span>
+          <span class="activity-item"> {{activity.maxCapacity}}</span>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="grid">
+        <div class="activity-detail-row" fxFlex="100%" fxFlex.gt-sm="50%">
+          <span class="activity-tooltip">People registered:</span>
+          <span class="activity-item"> {{activity.participatingUsers.length}}</span>
+        </div>
+        <div class="activity-detail-row" fxFlex="100%" fxFlex.gt-sm="50%">
+          <span class="activity-tooltip">Status:</span>
+          <span class="activity-item"> {{status}}</span>
+        </div>
+      </div>
+      <div class="activity-detail-row">
+        <span class="activity-tooltip">Price:</span>
+        <span class="activity-item price"> {{activity.price}} €</span>
+      </div>
 
     </mat-card-content>
     <mat-card-actions *ngIf="user && user.type !== 'company' && activity">
@@ -154,10 +70,9 @@
       </button>
     </mat-card-actions>
   </mat-card>
-</div>
 
-<ng-template #loading>
-  <div class="activities-details-container">
+  <ng-template #loading>
     <mat-spinner></mat-spinner>
-  </div>
-</ng-template>
+  </ng-template>
+
+</div>

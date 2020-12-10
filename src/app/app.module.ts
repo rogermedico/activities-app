@@ -21,8 +21,6 @@ import { CustomSerializer } from '@store/router/custom-router-serializer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '@views/home/home.component';
-import { HeaderComponent } from '@views/header/header.component';
-import { FooterComponent } from '@views/footer/footer.component';
 
 /* modules */
 import { ActivitiesModule } from './modules/activities/activities.module';
@@ -40,9 +38,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    HomeComponent,
-    FooterComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

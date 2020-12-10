@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppStore } from '@store/root.state';
 import { Store } from '@ngrx/store';
 import * as ActivityActions from '@store/activity/activity.action';
@@ -9,9 +9,10 @@ import * as UserActions from '@store/user/user.action';
 import { USER_TYPES } from '@constants/user-types.constant';
 import { Meta } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, map, pairwise, take } from 'rxjs/operators';
+import * as ActivitySelectors from '@store/activity/activity.selector';
 
 @Component({
   selector: 'app-root',
@@ -35,9 +36,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public userLoggedIn$: Observable<User> = this.store$.select(UserSelectors.selectUser);
   public routerEventsSubscriber: Subscription;
+  public activityToShow$: Observable<number> = this.store$.select(ActivitySelectors.selectActivityToShow);
+  public activityTopShowSubscriber: Subscription;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
-
+  @ViewChild('sidenavContent') sidenavContent: MatSidenavContent;
 
   constructor(private store$: Store<AppStore>, private router: Router, private bpo: BreakpointObserver) { }
 
@@ -80,12 +83,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  ngAfterViewInit() {
+    this.activityTopShowSubscriber = this.activityToShow$.subscribe(() => {
+      if (this.sidenavContent) this.sidenavContent.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   ngOnDestroy(): void {
     this.XSmallBreakpointSubscriber.unsubscribe();
     this.smallBreakpointSubscriber.unsubscribe();
     this.largeBreakpointSubscriber.unsubscribe();
     this.userStateSubscriber.unsubscribe();
     this.routerEventsSubscriber.unsubscribe();
+    this.activityTopShowSubscriber.unsubscribe();
   }
 
 }

@@ -5,16 +5,24 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 30px;
+  padding: 16px;
 }
 
-.card-title {
-  text-align: center;
-}
+// .card-title {
+//   text-align: center;
+// }
 
 .mat-card {
   padding: 16px 32px;
-  width: 95%;
+  width: calc(100% - 64px);
+
+  @include screen('md'){
+    width: 70%;
+  }
+
+  @include screen('xl'){
+    width: 45%;
+  }
 }
 
 .mat-card-header{
@@ -28,11 +36,11 @@
 .favorite-container {
     position: absolute;
     top:0;
-    left: 0;
+    right: 0;
 }
 
 .mat-card-title {
-  text-align: center;
+  // text-align: center;
   margin-bottom: 16px;
 }
 
@@ -41,17 +49,21 @@
 }
 
 .activity-tooltip {
-  width: 35%;
-  padding: 5px 0;
-  text-align: left;
-  padding-right: 15px;
+  font-size: 1.1rem;
+  color: rgba(0,0,0,0.54);
+}
+
+.price {
+  font-weight: 700;
 }
 
 .activity-item {
-  width: 65%;
-  padding: 5px 0;
-  text-align: left;
-  padding-left: 15px;
+  font-size: 1.2rem;
+}
+
+.activity-detail-row {
+  margin-bottom: 1rem;
+
 }
 
 .mat-card>.mat-card-actions {
