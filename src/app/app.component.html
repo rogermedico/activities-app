@@ -14,8 +14,11 @@
   </div>
   <div class="toolbar__brand">
     <a class="toolbar__link" routerLink="/home" (click)="sidenav.close()">
-      <button mat-button class="toolbar__brand__text">
-        {{title}}
+      <button mat-button fxHide.gt-sm class="toolbar__brand__text">
+        UAO
+      </button>
+      <button mat-button fxHide fxShow.gt-sm class="toolbar__brand__text">
+        UOC Activities Organizer
       </button>
     </a>
   </div>

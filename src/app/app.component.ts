@@ -21,8 +21,6 @@ import * as ActivitySelectors from '@store/activity/activity.selector';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  public title: string;
-
   public userTypes = USER_TYPES;
   public sidenavOpened: boolean;
   public sidenavMode: string;
@@ -55,13 +53,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.smallBreakpointSubscriber = this.bpo.observe([Breakpoints.Small]).subscribe((state: BreakpointState) => {
       if (state.matches) {
         this.sidenavMarginTop = 64;
-        this.title = 'UAO';
       }
     });
     this.largeBreakpointSubscriber = this.bpo.observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge]).subscribe((state: BreakpointState) => {
       if (state.matches) {
         this.sidenavMarginTop = 64;
-        this.title = 'UOC Activities Organizer';
         if (this.sidenav) this.sidenav.close();
 
       }
