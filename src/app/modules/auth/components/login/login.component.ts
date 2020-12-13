@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit, OnDestroy {
 
   public title: string = 'Login';
+  public hide: boolean = true;
   public wrongCredentials: Boolean = false;
   public loginForm: FormGroup;
   public hidePassword: boolean = true;

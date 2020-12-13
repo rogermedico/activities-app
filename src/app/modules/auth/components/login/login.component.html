@@ -18,8 +18,12 @@
         <section>
           <mat-form-field appearance="outline">
             <mat-label for="password">Enter your password:</mat-label>
-            <input matInput type="password" placeholder="Password" name="password" formControlName="password"
-              autocomplete="on">
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password"
+              formControlName="password" autocomplete="on">
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
             <mat-error *ngIf="(loginForm.get('password').dirty ) && loginForm.get('password').invalid">
               Password is Mandatory
             </mat-error>
