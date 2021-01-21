@@ -1,6 +1,6 @@
 # Dictionary
 
-This project is a frontend part of an Activities Organizer App. It has two roles of users, the normal user and the company user. Each role has access to diferent parts of the app.
+This project is a frontend part of an Activities Organizer App. It has two roles of users, the normal user and the company user. Each role has access to diferent parts of the app. There are 4 users already in the app but througout Register Button anyone can add more users.
 
 The user role has access to the following parts:
 
@@ -56,8 +56,8 @@ Using the Terminal, navigate to the project folder and run `npm install`.
 |----------|----------|------|
 | user1@gmail.com | 12341234 | User |
 | user2@gmail.com | 12341234 | User |
-| company1@gmail.com | 12341234 | User |
-| company2@gmail.com | 12341234 | User |
+| company1@gmail.com | 12341234 | Company |
+| company2@gmail.com | 12341234 | Company |
 
 ## Live example
 
