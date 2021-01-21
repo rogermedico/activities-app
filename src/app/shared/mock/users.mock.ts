@@ -6,10 +6,10 @@ import { User } from "@models/user.model";
 export const USERS_MOCK_DATA: User[] = [
   {
     id: 1,
-    name: "roger",
-    surname: "medico",
+    name: "john",
+    surname: "smith",
     type: USER_TYPES.tourist,
-    email: "rmedico@uoc.edu",
+    email: "user1@gmail.com",
     password: "12341234",
     loggedIn: false,
     education: [{
@@ -40,7 +40,7 @@ export const USERS_MOCK_DATA: User[] = [
     id: 2,
     name: "Activitats UOC",
     type: USER_TYPES.company,
-    email: "company@uoc.edu",
+    email: "company1@gmail.com",
     password: "12341234",
     loggedIn: false,
     education: [],
@@ -54,7 +54,7 @@ export const USERS_MOCK_DATA: User[] = [
     id: 3,
     name: "Enoturisme Priorat",
     type: USER_TYPES.company,
-    email: "enoturisme@priorat.cat",
+    email: "company2@gmail.com",
     password: "12341234",
     loggedIn: false,
     education: [
@@ -77,7 +77,7 @@ export const USERS_MOCK_DATA: User[] = [
     name: "joan",
     surname: "pere",
     type: USER_TYPES.tourist,
-    email: "joan@uoc.edu",
+    email: "user2@gmail.com",
     password: "12341234",
     loggedIn: false,
     education: [{

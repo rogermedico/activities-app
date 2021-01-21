@@ -38,6 +38,8 @@ Using the Terminal, navigate to the project folder and run `npm install`.
 * Uses [RxJS](https://rxjs-dev.firebaseapp.com/) to manage the asynchronous calls.
 * Uses the Redux pattern applied via [NGRX](https://ngrx.io/) to manage the global state of the aplication.
 * Application fully responsive. 
+* Uses [Angular in-memory-web-api](https://github.com/angular/in-memory-web-api) to fake the backend.
+* Redux isn't hidden and can be seen in Chrome using [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) extension.
 * NPM scripts for fast development and production build (see Commands below).
 
 
@@ -48,7 +50,15 @@ Using the Terminal, navigate to the project folder and run `npm install`.
 | `npm run start` | Runs a local web server for development and opens the browser to display it. Automatically compiles styles and scripts whenever a file in `src/` is changed, and live reloads the browser. This is what *must be run* on the development stage. |
 | `npm run build` | Compiles, minifies and optimizes the project. Use the `--prod` flag for a production build. These files are the ones that must be used to deploy on production. |
 
+### User names and passwords
+
+| Username | Password | Role |
+|----------|----------|------|
+| user1@gmail.com | 12341234 | User |
+| user2@gmail.com | 12341234 | User |
+| company1@gmail.com | 12341234 | User |
+| company2@gmail.com | 12341234 | User |
 
 ## Live example
 
-[https://jovial-brahmagupta-565dd0.netlify.app/](https://jovial-brahmagupta-565dd0.netlify.app/)
+[https://hardcore-curie-c445a0.netlify.app/](https://hardcore-curie-c445a0.netlify.app/)
